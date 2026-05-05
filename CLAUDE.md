@@ -169,4 +169,28 @@ These are not optional. They are part of what "done" means at Live Web Studios.
 
 ---
 
+## DEFAULT .gitignore — ADD TO EVERY NEW PROJECT
+
+Every new website build must include a `.gitignore` file in the project root.
+Create it automatically at the start of every build if it doesn't exist.
+
+Contents:
+
+```gitignore
+# Windows
+desktop.ini
+Thumbs.db
+ehthumbs.db
+$RECYCLE.BIN/
+
+# Mac
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Claude Code
+*.log
+.claude/
+
+
 *Live Web Studios — Est. 2004 | livewebstudios.com | jonwolf@livewebstudios.com*
