@@ -152,6 +152,35 @@ These are not optional. They are part of what "done" means at Live Web Studios.
 
 ---
 
+## 🔒 UI/UX PRO MAX — MUST-DO BEFORE DEPLOYING TO CLIENT
+
+Before sending any build to the client (preview link, zip, staging URL, or production
+deploy), run the **UI/UX Pro Max** skill against the project. It is the final
+accessibility / interaction-layer audit and catches the issues the four Impeccable
+passes do not — focus rings, keyboard nav, touch-vs-hover dropdowns, ARIA live regions,
+contrast at the 4.5:1 boundary, and industry-pattern alignment for the project's
+vertical (home services / SaaS / e-commerce / etc.).
+
+**How to run it:**
+
+```bash
+# Generate a fresh design-system recommendation for the project's vertical
+python3 <skill-path>/src/ui-ux-pro-max/scripts/search.py "<vertical keywords>" --design-system -p "<Client Name>"
+
+# Then audit the actual build against UX guidelines
+python3 <skill-path>/src/ui-ux-pro-max/scripts/search.py "accessibility contrast" --domain ux
+python3 <skill-path>/src/ui-ux-pro-max/scripts/search.py "hover focus keyboard navigation" --domain ux
+```
+
+Map the findings to the build, fix any P0/P1 gaps, and only then ship to the client.
+
+**This is non-negotiable. No client preview link goes out without a Pro Max pass.**
+
+If the skill folder is not in the project, ask Jon for the location — it is normally in
+the project root or a sibling folder named `ui-ux-pro-max-skill-*`.
+
+---
+
 ## STAGING & GO-LIVE CONVENTION
 
 - Go-live = move files to public root + global find-replace of all path prefixes
@@ -191,6 +220,6 @@ $RECYCLE.BIN/
 # Claude Code
 *.log
 .claude/
-
+```
 
 *Live Web Studios — Est. 2004 | livewebstudios.com | jonwolf@livewebstudios.com*
