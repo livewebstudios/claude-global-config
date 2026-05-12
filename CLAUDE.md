@@ -114,6 +114,24 @@ Never assume a non-updating file is a code problem before ruling out LiteSpeed c
 - Jon manages all page-level edits
 - Collections defined in `config.yml` — Netlify Identity handles auth
 
+### CUSTOM LOGIN PAGE — REQUIRED WHEN DECAP IS INCLUDED
+
+When a build includes Decap CMS, the `admin/index.html` MUST use the
+LWS custom branded login page — NOT the Decap default.
+
+The master template lives at:
+https://github.com/livewebstudios/claude-global-config/blob/main/index.html
+
+**Per-client customization — one change only:**
+Change the `<title>` tag to: `Site Admin — [Client Name]`
+Everything else stays exactly as-is.
+
+**Images are hotlinked — do not copy image files into the project:**
+- Logo: `https://livewebstudios.com/hlink/logofaceFINAL.png`
+- Badge: `https://livewebstudios.com/hlink/verifiedsecured.jpg`
+
+**When to include:** Only when INSTRUCTIONS.md flags `DECAP CMS: Yes`.
+Do not create an `admin/` folder or `admin/index.html` on non-CMS builds.
 ---
 
 ## PRE-LAUNCH SEO AUDIT — REQUIRED BEFORE CLIENT DELIVERY
