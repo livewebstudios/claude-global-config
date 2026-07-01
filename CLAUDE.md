@@ -38,6 +38,18 @@ Verify with grep before packaging any zip.
 
 ---
 
+## FOOTER BADGE RULE — HARD STOP
+
+Every site footer must include:
+```html
+<a href="https://livewebstudios.com">
+  <img src="images/verifiedsecured.png" alt="Verified & Secured by Live Web Studios">
+</a>
+```
+No exceptions unless Jon explicitly says otherwise in this session.
+
+---
+
 ## NAV TEXT RULE — HARD STOP
 
 ALL navigation link text — top nav, sub-menus, mobile menu — must be in **ALL CAPS / uppercase**.
@@ -198,6 +210,8 @@ Add `ServiceArea` and `hasMap` when address and service region are known.
 - Relative paths only — verified before packaging (see above)
 - Zips extract flat — no wrapper subfolder — root-relative structure only
 - Send only changed files when 1–2 files changed — not a full-site zip
+- File naming: `yy_mn_dy_clientname_deliverable` (e.g., `26_04_21_bline_homepage.html`)
+- All downloads save to Desktop — never the Downloads folder
 
 ---
 
@@ -209,10 +223,29 @@ Remove: `.top-bar` `.site-header` `.footer-wave` `.site-footer`
 
 ---
 
+## SERVER PERMISSIONS (post-deploy to KH VPS)
+
+Run after every SCP deploy:
+```bash
+find . -type d -exec chmod 755 {} \;
+find . -type f -exec chmod 644 {} \;
+```
+KH VPS defaults to 0600 after upload. This is required every time.
+Note: `cp` is aliased to `cp -i` on KH — use `\cp -rf` to bypass.
+
+---
+
 ## LITESPEED CACHE-BUSTING
 
 Rename files to force cache bypass (e.g., `nav.js` → `nav2.js`).
 Never assume a non-updating file is a code problem before ruling out LiteSpeed cache.
+
+---
+
+## STAGING & GO-LIVE CONVENTION
+
+- Go-live = move files to public root + global find-replace of all path prefixes
+- For Netlify deploys: find-replace all `/newsite/` prefixes across `.html` and `.js` before pushing
 
 ---
 
@@ -303,6 +336,51 @@ If they haven't been run in this session, remind Jon before wrapping up.
 ```
 
 These are not optional. They are part of what "done" means at Live Web Studios.
+Each pass has a slash command in `~/.claude/commands/` (synced from this repo). If a
+command isn't installed on this machine, execute the pass by following its checklist below.
+
+### 1. /polish — COPY, GRAMMAR, TONE
+
+- Proofread every visible string: spelling, grammar, punctuation.
+- Enforce FORBIDDEN COPY PHRASES — replace with a preferred CTA.
+- Voice: run copy through Jon's voice (the `jonvoice` skill) — no generic marketing filler,
+  no corporate-speak, no templated CTA language.
+- No placeholder/lorem-ipsum text left anywhere.
+- Consistency: business name, phone format, email, and address spelled identically on every page.
+- Typography hygiene: no double spaces, consistent em-dash / en-dash use, consistent quote style.
+- Nav link text is ALL CAPS (cross-check NAV TEXT RULE).
+- Headings read as real hierarchy, not keyword stuffing.
+
+### 2. /colorize — CONTRAST & BRAND COLOR
+
+- All colors come from CSS custom properties — grep for hardcoded hex/rgb and replace.
+- Contrast: body text ≥ 4.5:1, large text (≥24px or 19px bold) ≥ 3:1, UI/icons/borders ≥ 3:1.
+- Verify contrast on EVERY background: light sections, dark sections, image overlays, buttons.
+- Brand palette used consistently across buttons, links, headings, accents, icons.
+- Hover / focus / active / disabled states stay on-palette AND still pass contrast.
+- Links are visually distinct from body text (not color alone — add underline/weight).
+- No accidental pure-black-on-pure-white unless intended.
+
+### 3. /layout — SPACING, ALIGNMENT, RESPONSIVE
+
+- Consistent spacing scale via variables; even vertical rhythm between sections.
+- Alignment: shared grid, no orphaned or misaligned elements, optical centering where needed.
+- Responsive check at 320 / 375 / 768 / 1024 / 1440px — no horizontal scroll, no overflow, no clipping.
+- Tap targets ≥ 44×44px on mobile; adequate spacing between them.
+- Visual hierarchy: H1 > H2 > H3 sizing is obvious; clear separation between sections.
+- Every image has width/height set (CLS); confirm no layout shift on load.
+- Sticky nav never overlaps or hides content; anchor-scroll offsets account for it.
+- Footer complete (address, phone, email, copyright, internal links, LWS badge) and aligned.
+
+### 4. /animate — MOTION & MICRO-INTERACTIONS
+
+- Section entrance animations wired via IntersectionObserver.
+- `window.LWS.observe(el)` called for any dynamically inserted content (cross-check DECAP RENDERER PATTERN).
+- Scroll-triggered reveals are smooth — no jank, no layout shift from animation.
+- Micro-interactions present: button hover, link underline/slide, card lift/shadow.
+- `prefers-reduced-motion: reduce` respected — animations disabled or minimized.
+- Transition timing and easing consistent across the site via variables.
+- No infinite/distracting loops; nothing animates above-the-fold content out of view on load.
 
 ---
 
@@ -337,6 +415,9 @@ the project root or a sibling folder named `ui-ux-pro-max-skill-*`.
 
 ## HOSTING REFERENCE
 
+- **KH VPS:** `root@158.106.145.226` port `2200` | WHM at port `2087`
+- **Netlify static IP (apex A record):** `75.2.60.5` — permanent
+- **Netlify www:** CNAME to `{site-name}.netlify.app`
 - **GitHub username:** `livewebstudios`
 - **Formspree:** use `_next` hidden field for thank-you redirect (bypasses branding on free plan)
 - **Formspree honeypot:** include `<input type="text" name="_gotcha" style="display:none">` on every form
