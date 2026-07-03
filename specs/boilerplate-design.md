@@ -75,6 +75,19 @@ Never assume a non-updating file is a code problem before ruling out LiteSpeed c
 
 ---
 
+## Typography — Default Font
+**Primary font:** Plus Jakarta Sans (Google Fonts)
+
+**HTML head:**
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+**CSS:**
+font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+
+---
+
 ## DEFAULT .gitignore: ADD TO EVERY NEW PROJECT
 
 Every new website build must include a `.gitignore` in the project root. Create it
