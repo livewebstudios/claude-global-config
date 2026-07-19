@@ -100,7 +100,9 @@ spec file. The config learns from repeated corrections instead of forgetting the
 - Downloadable files go to the desktop of whatever machine is in use.
 - File naming: `YY_MN_DY_descriptivename.ext`.
 - Clean Markdown for internal planning. Semantic HTML for any web-ready content.
-
+- WEBSITE ROOT: the live site (git repo + deliverable files) usually lives in a
+  `build/` subfolder of the client project, not the project's top level. Always
+  check `build/` first when locating or editing site files, running git, or serving.
 ---
 
 *Live Web Studios, Est. 2004 | livewebstudios.com | jonwolf@livewebstudios.com*
